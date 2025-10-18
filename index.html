@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>드론UAM 서비스 토탈 솔루션 공급</title>
+    <style>
+        /* ===== 기본 설정 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* ===== 히어로 섹션 ===== */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease;
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero-emoji {
+            font-size: 4em;
+            margin-bottom: 20px;
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            padding: 18px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .cta-primary {
+            background: white;
+            color: #667eea;
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+        }
+
+        .cta-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cta-secondary:hover {
+            background: white;
+            color: #667eea;
+            transform: translateY(-3px);
+        }
+
+        /* ===== 공통 섹션 스타일 ===== */
+        section {
+            padding: 80px 20px;
+            animation: fadeIn 1s ease;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 60px;
+            color: #333;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ===== 문제 제시 섹션 ===== */
+        .problem-section {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .problem-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .problem-card .emoji {
+            font-size: 3.5em;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .problem-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .problem-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* ===== 솔루션 섹션 ===== */
+        .solution-section {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .solution-card {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 25px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            text-align: center;
+        }
+
+        .solution-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .solution-card .emoji {
+            font-size: 4em;
+            display: block;
+            margin-bottom: 25px;
+        }
+
+        .solution-card h3 {
+            font-size: 1.7em;
+            margin-bottom: 20px;
+            color: #764ba2;
+        }
+
+        /* ===== 서비스 섹션 ===== */
+        .services-section {
+            background: #fff;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px;
+            border-radius: 20px;
+            color: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+            transform: scale(1.5);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .service-card .emoji {
+            font-size: 3.5em;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 1.6em;
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            margin-bottom: 20px;
+            opacity: 0.95;
+        }
+
+        .detail-button {
+            background: white;
+            color: #667eea;
+            padding: 12px 30px;
+            border-radius: 25px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .detail-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* 모달 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 50px;
+            border-radius: 25px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2em;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #333;
+        }
+
+        .modal-content h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .modal-content .emoji {
+            font-size: 3em;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .modal-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .modal-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-list li:before {
+            content: '✓';
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        /* ===== 작동 방식 섹션 ===== */
+        .howto-section {
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            position: relative;
+        }
+
+        .step {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .step:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .step-number {
+            font-size: 3em;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .step h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        /* ===== 특장점 섹션 ===== */
+        .features-section {
+            background: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 40px;
+            border-radius: 20px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(240, 147, 251, 0.4);
+        }
+
+        .feature-card .emoji {
+            font-size: 3em;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        /* ===== 가격 섹션 ===== */
+        .pricing-section {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: white;
+            padding: 50px;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .pricing-card.featured {
+            border: 3px solid #667eea;
+            transform: scale(1.05);
+        }
+
+        .pricing-card .emoji {
+            font-size: 3.5em;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .price {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #764ba2;
+            margin: 20px 0;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .pricing-features li:before {
+            content: '✓';
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        /* ===== FAQ 섹션 ===== */
+        .faq-section {
+            background: white;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: #f8f9fa;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .faq-question {
+            padding: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 25px;
+        }
+
+        .faq-answer.active {
+            max-height: 500px;
+            padding: 0 25px 25px 25px;
+        }
+
+        .faq-toggle {
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        /* ===== 최종 CTA 섹션 ===== */
+        .final-cta {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-cta::before {
+            content: '🚁';
+            position: absolute;
+            font-size: 15em;
+            opacity: 0.1;
+            top: -50px;
+            right: -50px;
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .final-cta h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .final-cta p {
+            font-size: 1.3em;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== 푸터 ===== */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 50px 20px 30px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            margin: 30px 0;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .copyright {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            opacity: 0.7;
+        }
+
+        /* ===== 맨 위로 버튼 ===== */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #667eea;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .scroll-top.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            background: #764ba2;
+        }
+
+        /* ===== 애니메이션 ===== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== 반응형 디자인 ===== */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2em;
+            }
+
+            .hero p {
+                font-size: 1.1em;
+            }
+
+            .section-title {
+                font-size: 2em;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-button {
+                width: 100%;
+            }
+
+            .modal-content {
+                padding: 30px;
+            }
+
+            section {
+                padding: 60px 15px;
+            }
+
+            .problems-grid,
+            .solutions-grid,
+            .services-grid,
+            .features-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.7em;
+            }
+
+            .hero-emoji {
+                font-size: 3em;
+            }
+
+            .problem-card,
+            .solution-card,
+            .service-card,
+            .feature-card {
+                padding: 30px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 히어로 섹션 -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-emoji">🚁✈️🛸</span>
+            <h1>드론UAM 서비스 토탈 솔루션 공급</h1>
+            <p>드론UAM 인력과 솔루션은 모두 이곳에<br>
+            배송부터 점검, 긴급 구조까지 - 당신이 필요한 모든 드론 서비스를 한 곳에서</p>
+            <div class="cta-buttons">
+                <a href="#services" class="cta-button cta-primary">서비스 소개 보기</a>
+                <a href="https://forms.gle/YOUR_FORM_LINK" target="_blank" class="cta-button cta-secondary">무료 상담 신청</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 문제 제시 섹션 -->
+    <section class="problem-section">
+        <div class="container">
+            <h2 class="section-title">왜 드론UAM 서비스가 필요한가요? 🤔</h2>
+            <div class="problems-grid">
+                <div class="problem-card">
+                    <span class="emoji">📦</span>
+                    <h3>복잡한 물류 배송 문제</h3>
+                    <p>도심 교통 정체와 접근성 제약으로 인한 배송 지연이 일상화되고 있습니다. 긴급 의료품이나 중요 물품의 시간 민감 배송이 점점 어려워지고 있습니다.</p>
+                </div>
+                <div class="problem-card">
+                    <span class="emoji">🏗️</span>
+                    <h3>위험한 시설 점검</h3>
+                    <p>고층 건물, 송전탑, 교량 등 고위험 시설물 점검에 작업자의 안전이 위협받고 있으며, 막대한 인력과 시간이 소요되어 비용 부담이 큽니다.</p>
+                </div>
+                <div class="problem-card">
+                    <span class="emoji">🆘</span>
+                    <h3>긴급 상황 대응의 한계</h3>
+                    <p>재난, 산악 조난, 수색 구조 등 긴급 상황에서 빠른 대응이 생명을 좌우하지만, 기존 방식으로는 골든타임을 놓치는 경우가 빈번합니다.</p>
+                </div>
+                <div class="problem-card">
+                    <span class="emoji">💰</span>
+                    <h3>높은 운영 비용</h3>
+                    <p>전문 인력 확보와 장비 운용에 막대한 비용이 들지만, 일회성 수요로 인해 자체 구축이 비효율적입니다. 기술 전문성도 부족합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 솔루션 섹션 -->
+    <section class="solution-section">
+        <div class="container">
+            <h2 class="section-title">드론UAM 토탈 솔루션의 해결책 💡</h2>
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <span class="emoji">🚀</span>
+                    <h3>스마트 드론 배송 시스템</h3>
+                    <p>AI 기반 자동 비행 경로 최적화로 빠르고 정확한 배송을 실현합니다. 교통 체증 없이 직선 거리로 이동하여 배송 시간을 70% 단축하고, 긴급 의료품과 중요 물품을 골든타임 내에 전달합니다.</p>
+                </div>
+                <div class="solution-card">
+                    <span class="emoji">🔍</span>
+                    <h3>무인 시설물 안전 점검</h3>
+                    <p>고해상도 카메라와 열화상 센서를 탑재한 드론으로 위험 지역을 안전하게 점검합니다. 작업자 안전 리스크를 제거하고 점검 시간을 80% 단축하며, 실시간 데이터 분석으로 조기 위험 감지가 가능합니다.</p>
+                </div>
+                <div class="solution-card">
+                    <span class="emoji">⚡</span>
+                    <h3>24시간 긴급 대응 서비스</h3>
+                    <p>재난 현장, 산악 구조, 실종자 수색 등 긴급 상황에 즉각 출동합니다. 실시간 영상 전송으로 상황 파악이 빠르고, 구조대가 도달하기 어려운 지역에도 신속히 접근하여 생존율을 높입니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 서비스 소개 섹션 -->
+    <section id="services" class="services-section">
+        <div class="container">
+            <h2 class="section-title">제공 서비스 📋</h2>
+            <div class="services-grid">
+                <div class="service-card" onclick="openModal('modal1')">
+                    <span class="emoji">📦</span>
+                    <h3>스마트 배송 서비스</h3>
+                    <p>도심 및 원거리 물품 배송을 드론으로 신속하게 처리합니다.</p>
+                    <button class="detail-button">자세히 보기</button>
+                </div>
+                <div class="service-card" onclick="openModal('modal2')">
+                    <span class="emoji">🏢</span>
+                    <h3>시설물 점검 서비스</h3>
+                    <p>건물, 교량, 송전탑 등 고위험 시설을 안전하게 점검합니다.</p>
+                    <button class="detail-button">자세히 보기</button>
+                </div>
+                <div class="service-card" onclick="openModal('modal3')">
+                    <span class="emoji">🆘</span>
+                    <h3>긴급 구조 지원</h3>
+                    <p>재난 현장과 산악 조난 시 신속한 수색 및 구조를 지원합니다.</p>
+                    <button class="detail-button">자세히 보기</button>
+                </div>
+                <div class="service-card" onclick="openModal('modal4')">
+                    <span class="emoji">🌾</span>
+                    <h3>농업 방제 서비스</h3>
+                    <p>넓은 농경지를 효율적으로 관리하고 정밀 방제를 수행합니다.</p>
+                    <button class="detail-button">자세히 보기</button>
+                </div>
+                <div class="service-card" onclick="openModal('modal5')">
+                    <span class="emoji">📸</span>
+                    <h3>항공 촬영/측량</h3>
+                    <p>고품질 항공 영상 촬영 및 정밀 지형 측량을 제공합니다.</p>
+                    <button class="detail-button">자세히 보기
